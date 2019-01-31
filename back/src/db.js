@@ -1,91 +1,103 @@
+// back/src/db.js
 import sqlite from 'sqlite'
 import SQL from 'sql-template-strings';
 
-const initializeDatabase = async () => {
+const initializeDatabase=async()=>{
 
-  const db = await sqlite.open('./db.sqlite');
-  
-  /**
-   * create an article
-   * @param {object} props an object with keys `name`  `subject`  `date`
-   * @returns {number} the id of the created articles (or an error if things went wrong) 
+const db= await sqlite.open('./db.sqlite');
+
+
+/**
+   * creates an article
+   * @param {object} props an object with keys `title` , `text` , `img_path` , `date` , `link`
+   * @returns {number} the id of the created article (or an error if things went wrong) 
    */
-  const createArticles = async (props) => {
-    if(!props || !props.name || !props.subject || !props.date){
-      throw new Error(`you must provide a name , Subject and Date`)
-    }
-    const { name, subject , date } = props
-    try{
-      const result = await db.run(SQL`INSERT INTO articles (articles_name,articles_subject , articles_date) VALUES (${name}, ${subject} ,${date})`);
-      const id = result.stmt.lastID
-      return id
-    }catch(e){
-      throw new Error(`couldn't insert this combination: `+e.message)
-    }
-  }
-  
-  /**
+
+   const createArticle = async(props) =>{
+        if(!props || !props.title || !props.text || !props.img_path || !props.date ){
+            throw new Error (`It's an article !!!! write something`)
+        }
+        const { title , text , img_path , date} = props
+        try{
+            const result = await db.run(SQL`INSERT INTO articles (title , text , img_path , date , link)  VALUES  (${title},${text},${img_path},${date},${link})`)
+            const id = result.stmt.lastID
+            return id 
+        }catch(e){
+            throw new Error (`couldn't insert this combination: `+e.message)
+        }
+   }
+
+   /**
    * deletes an article
-   * @param {number} id the id of the articles to delete
-   * @returns {boolean} `true` if the contact was deleted, an error otherwise 
+   * @param {number} id the id of the article to delete
+   * @returns {boolean} `true` if the article was deleted, an error otherwise 
    */
-  const deleteArticles = async (id) => {
-    try{
-      const result = await db.run(SQL`DELETE FROM articles WHERE articles_id = ${id}`);
-      if(result.stmt.changes === 0){
-        throw new Error(`article "${id}" does not exist`)
-      }
-      return true
-    }catch(e){
-      throw new Error(`couldn't delete the article "${id}": `+e.message)
+
+    const deleteArticle = async (id) =>{
+        try{
+            const result = await db.run(SQL`DELETE FROM articles WHERE id = ${id}`)
+        if(result.stmt.changes === 0 ){
+            throw new Error (`article "${id}" does not exist `)
+        }
+        return true
+        }catch(e){
+            throw new Error (`couldn't delete the article "${id}": `+e.message)
+        }
+
     }
-  }
-  
- /**
+
+    /**
    * Edits an article
    * @param {number} id the id of the article to edit
-   * @param {object} props an object with at least one of `name` or `subject` or `date`
+   * @param {object} props an object with at least one of `title` or`text` or`img_path` or`link`
    */
-  const updateArticles = async (id, props) => {
-    if (!props || !(props.name || props.subject || !props.date)) {
-      throw new Error(`you must provide a name or subject or date`);
+    const updateArticle = async(id,props) =>{
+        if(!props || !props.title || !props.text || !props.link || !props.img_path){
+            throw new Error (`you must provide something`)
+        }
+        const {title,text,img_path,link} =props
+        try{
+            let statement ='';
+            if(title && text){
+                statement = SQL(`UPDATE articles SET title =${title} text = ${text} WHERE id=${id}`)
+            }else if (title && img_path){
+                statement = SQL(`UPDATE articles SET title =${title} img_path = ${img_path} WHERE id=${id}`)
+            }else if(title && link){
+                statement = SQL(`UPDATE articles SET title =${title} link = ${link} WHERE id=${id}`)
+            }else if (text && img_path){
+                statement = SQL(`UPDATE articles SET text =${text} img_path = ${img_path} WHERE id=${id}`)
+            }else if (text && link){
+                statement = SQL(`UPDATE articles SET text =${text} link = ${link} WHERE id=${id}`)
+            }else if (img_path && link){
+                statement = SQL(`UPDATE articles SET link =${link} img_path = ${img_path} WHERE id=${id}`)
+            }else if (text){
+                statement = SQL(`UPDATE articles SET text =${text}  WHERE id=${id}`)
+            }else if (title){
+                statement = SQL(`UPDATE articles SET title =${title} WHERE id=${id}`)
+            }else if (img_path){
+                statement = SQL(`UPDATE articles SET  img_path = ${img_path} WHERE id=${id}`)
+            }else if (link){
+                statement = SQL(`UPDATE article SET link=${link} WHERE id=${id}`)
+            }
+            const result = await db.run(statement)
+            if(result.stmt.changes === 0 ){
+                throw new Error (`no changes were made`)
+            }
+            return true
+        }catch(e){
+            throw new Error (`couldn't update the article ${id}: ` + e.message)
+        }
     }
-    const { name, subject, date } = props;
-    try {
-      let statement = "";
-      if (name && subject && date) {
-        statement = SQL`UPDATE articles SET articles_subject=${subject}, name=${articles_name},articles_date=${date} WHERE articles_id = ${id}`;
-      } else if (name && subject) {
-        statement = SQL`UPDATE articles SET articles_name=${name},articles_subject=${subject} WHERE articles_id = ${id}`;
-      }else if (name && date){
-        statement = SQL`UPDATE articles SET articles_name=${name},articles_date=${date} WHERE articles_id = ${id}`;
-      }else if (subject && date){
-        statement = SQL`UPDATE articles SET articles_subject=${subject},articles_date=${date} WHERE articles_id = ${id}`;
-      }else if (subject) {
-        statement = SQL`UPDATE articles SET articles_subject=${subject} WHERE articles_id = ${id}`;
-      }else if (name){
-        statement = SQL`UPDATE articles SET articles_name=${name} WHERE articles_id = ${id}`;
-      }else if (date){
-        statement = SQL`UPDATE articles SET articles_date=${date} WHERE articles_id = ${id}`;
-      }
-      const result = await db.run(statement);
-      if (result.stmt.changes === 0) {
-        throw new Error(`no changes were made`);
-      }
-      return true;
-    } catch (e) {
-      throw new Error(`couldn't update the articles ${id}: ` + e.message);
-    }
-  }
-  
-  /**
-   * Retrieves a articles
+
+    /**
+   * Retrieves an article
    * @param {number} id the id of the article
-   * @returns {object} an object with `name`, `subject`, `date` and `id`, representing a article, or an error 
+   * @returns {object} an object with `title`,`text` , `img_path` ,`link` and `id`, representing a article, or an error 
    */
-  const getArticles = async (id) => {
+
+  const getArticle = async (id) => {
     try{
-      const articlesList = await db.all(SQL`SELECT articles_id AS id, articles_name, articles_subject,articles_date FROM articles WHERE articles_id = ${id}`);
+      const articlesList = await db.all(SQL`SELECT  id, title, text , img_path , link FROM articles WHERE id = ${id}`);
       const article = articlesList[0]
       if(!article){
         throw new Error(`article ${id} not found`)
@@ -95,41 +107,50 @@ const initializeDatabase = async () => {
       throw new Error(`couldn't get the article ${id}: `+e.message)
     }
   }
-  
-  /**
-   * retrieves the articles from the database
-   * @param {string} orderBy an optional string that is either "name" or "subject" or "date"
-   * @returns {array} the list of articles
-   */
-  const getArticlesList = async (orderBy) => {
-    try{
-      
-      let statement = `SELECT articles_id AS id, articles_name, articles_subject FROM articles`
-      switch(orderBy){
-        case 'articles_name': statement+= ` ORDER BY articles_name`; break;
-        case 'articles_subject': statement+= ` ORDER BY articles_subject`; break;
-        case 'articles_date': statement+= ` ORDER BY articles_date`; break;
-        default: break;
-      }
-      const rows = await db.all(statement)
-      if(!rows.length){
-        throw new Error(`no rows found`)
-      }
-      return rows
-    }catch(e){
-      throw new Error(`couldn't retrieve articles: `+e.message)
-    }
-  }
-  
-  const controller = {
-    createArticles,
-    deleteArticles,
-    updateArticles,
-    getArticles,
-    getArticlesList
-  }
 
-  return controller
+
+const getArticlesList = async(orderBy)=>{
+
+try{
+    let statement =`SELECT id , title , text , img_path , link FROM articles `
+    switch(orderBy){
+        case 'title': statement +=  `ORDER BY title`;break
+        case 'text' : statement += `ORDER BY text`;break
+        case 'img_path' : statement += ` ORDER BY img_path`;break
+        case 'link' : statement += `ORDER BY link`;break
+        default: break
+    }
+    const rows = await db.all(statement)
+    if(!rows.length){
+        throw new Error (`no rows found`)
+    }
+    return rows
+}catch(e){
+    throw new Error (`couldn't retrieve articles: `+e.message)
 }
 
+}
+
+
+const controller ={
+
+getArticlesList,
+createArticle,
+updateArticle,
+deleteArticle,
+getArticle,
+
+}
+return controller;
+
+}
+
+
+
+
+
+
+
 export default initializeDatabase
+
+
