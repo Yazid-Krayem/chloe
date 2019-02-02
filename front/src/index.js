@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import "picnic/picnic.min.css";
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
