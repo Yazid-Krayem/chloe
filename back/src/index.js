@@ -9,8 +9,8 @@ const start = async () => {
   // CREATE
   app.get("/articles/new", async (req, res, next) => {
     try {
-      const { title , text ,img_path ,link } = req.query;
-      const result = await controller.createArticle({ title , text ,img_path ,link });
+      const { title , text,date ,img_path ,link } = req.query;
+      const result = await controller.createArticle({ title , text,date ,img_path ,link });
       res.json({ success: true, result });
     } catch (e) {
       next(e);
@@ -43,8 +43,8 @@ const start = async () => {
   app.get("/articles/update/:id", async (req, res, next) => {
     try {
       const { id } = req.params;
-      const { title , text ,img_path ,link } = req.query;
-      const result = await controller.updateArticle(id, { title , text ,img_path ,link });
+      const { title , text ,date,img_path ,link } = req.query;
+      const result = await controller.updateArticle(id, { title , text ,date,img_path ,link });
       res.json({ success: true, result });
     } catch (e) {
       next(e);

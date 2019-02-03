@@ -10,7 +10,7 @@ class Article extends Component {
         this.setState({editMode})
     }
     renderEditMode (){
-        const {id,title,text,date,link,img_path,updateArticle,deleteArticle} =this.props
+        const {id,title,text,date,link,updateArticle,deleteArticle} =this.props
         return <div>Edit mode</div>
     }
     renderViewMode (){

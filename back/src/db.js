@@ -55,7 +55,7 @@ const db= await sqlite.open('./db.sqlite');
         if(!props || !props.title || !props.text || !props.link || !props.img_path){
             throw new Error (`you must provide something`)
         }
-        const {title,text,img_path,link} =props
+        const {title,text,date,img_path,link} =props
         try{
             let statement ='';
             if(title && text){
@@ -64,10 +64,18 @@ const db= await sqlite.open('./db.sqlite');
                 statement = SQL(`UPDATE articles SET title =${title} img_path = ${img_path} WHERE id=${id}`)
             }else if(title && link){
                 statement = SQL(`UPDATE articles SET title =${title} link = ${link} WHERE id=${id}`)
+            }else if(title && date){
+                statement = SQL(`UPDATE articles SET title =${title} date = ${date} WHERE id=${id}`)
             }else if (text && img_path){
                 statement = SQL(`UPDATE articles SET text =${text} img_path = ${img_path} WHERE id=${id}`)
             }else if (text && link){
                 statement = SQL(`UPDATE articles SET text =${text} link = ${link} WHERE id=${id}`)
+            }else if (text && date){
+                statement = SQL(`UPDATE articles SET text =${text} date = ${date} WHERE id=${id}`)
+            }else if (date && img_path){
+                statement = SQL(`UPDATE articles SET date =${date} img_path = ${img_path} WHERE id=${id}`)
+            }else if(date && link){
+                statement = SQL(`UPDATE articles SET date =${date} link = ${link} WHERE id=${id}`)
             }else if (img_path && link){
                 statement = SQL(`UPDATE articles SET link =${link} img_path = ${img_path} WHERE id=${id}`)
             }else if (text){
@@ -78,6 +86,8 @@ const db= await sqlite.open('./db.sqlite');
                 statement = SQL(`UPDATE articles SET  img_path = ${img_path} WHERE id=${id}`)
             }else if (link){
                 statement = SQL(`UPDATE article SET link=${link} WHERE id=${id}`)
+            }else if(date){
+                statement = SQL(`UPDATE article SET date=${date} WHERE id=${id}`)
             }
             const result = await db.run(statement)
             if(result.stmt.changes === 0 ){
