@@ -71,70 +71,70 @@ class App extends Component {
       if(title && text)
       {
         url=
-          `http://localhost:8080/contacts/update/${id}?title=${title}&text=${text}`;
+          `http://localhost:8080/articles/update/${id}?title=${title}&text=${text}`;
     
       }
       if(title && date){
         url =
-        `http://localhost:8080/contacts/update/${id}?title=${title}&date=${date}`;
+        `http://localhost:8080/articles/update/${id}?title=${title}&date=${date}`;
       }
       if(title && link){
         url =
-        `http://localhost:8080/contacts/update/${id}?title=${title}&link=${link}`;
+        `http://localhost:8080/articles/update/${id}?title=${title}&link=${link}`;
       }
       if(title && img_path){
         url =
-        `http://localhost:8080/contacts/update/${id}?title=${title}&img_path=${img_path}`;
+        `http://localhost:8080/articles/update/${id}?title=${title}&img_path=${img_path}`;
       }
       if(text && date){
         url =
-        `http://localhost:8080/contacts/update/${id}?text=${text}&date=${date}`;
+        `http://localhost:8080/articles/update/${id}?text=${text}&date=${date}`;
       }
       if(text && link){
         url =
-        `http://localhost:8080/contacts/update/${id}?text=${text}&link=${link}`;
+        `http://localhost:8080/articles/update/${id}?text=${text}&link=${link}`;
       }
       if(text && img_path){
         url =
-        `http://localhost:8080/contacts/update/${id}?text=${text}&img_path=${img_path}`;
+        `http://localhost:8080/articles/update/${id}?text=${text}&img_path=${img_path}`;
       }
       if(link && date){
         url =
-        `http://localhost:8080/contacts/update/${id}?link=${link}&date=${date}`;
+        `http://localhost:8080/articles/update/${id}?link=${link}&date=${date}`;
       }
       if(img_path && date){
         url =
-        `http://localhost:8080/contacts/update/${id}?img_path=${img_path}&date=${date}`;
+        `http://localhost:8080/articles/update/${id}?img_path=${img_path}&date=${date}`;
       }
       if(link && img_path){
         url =
-        `http://localhost:8080/contacts/update/${id}?img_path=${img_path}&link=${link}`;
+        `http://localhost:8080/articles/update/${id}?img_path=${img_path}&link=${link}`;
       }
       if(title)
       {
         url=
-          `http://localhost:8080/contacts/update/${id}?title=${title}`;
+          `http://localhost:8080/articles/update/${id}?title=${title}`;
         
       }
       if(text)
       {
         url=
-          `http://localhost:8080/contacts/update/${id}?text=${text}`;
+          `http://localhost:8080/articles/update/${id}?text=${text}`;
       }
       if(link)
       {
         url=
-          `http://localhost:8080/contacts/update/${id}?link=${link}`;
+          `http://localhost:8080/articles/update/${id}?link=${link}`;
       }
       if(date)
       {
         url=
-          `http://localhost:8080/contacts/update/${id}?date=${date}`;       
+          `http://localhost:8080/articles/update/${id}?date=${date}`;       
       }
       if(img_path)
       {
         url=
-          `http://localhost:8080/contacts/update/${id}?img_path=${img_path}`; 
+          `http://localhost:8080/articles/update/${id}?img_path=${img_path}`; 
       }
 
       const response = await fetch(
@@ -178,7 +178,7 @@ class App extends Component {
       }
       const {title, text, date ,link,img_path} = props;
       const response = await fetch(
-        `//localhost:8080/candles/new/?title=${title}&text=${text}&date=${date}&link=${link}&img_path=${img_path}`
+        `//localhost:8080/articles/new/?title=${title}&text=${text}&date=${date}&link=${link}&img_path=${img_path}`
       );
       console.log(props)
       const answer = await response.json();
