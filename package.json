@@ -22,8 +22,12 @@
   },
   "homepage": "https://github.com/rakon1/chole#readme",
   "dependencies": {
+    "bootstrap": "^4.2.1",
     "concurrently": "^4.1.0",
     "postinstall": "^0.4.2",
+    "react": "^16.7.0",
+    "react-bootstrap": "^1.0.0-beta.5",
+    "react-dom": "^16.7.0",
     "react-spring": "^7.2.10",
     "react-toastify": "^4.5.2"
   }
