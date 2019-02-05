@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Switch, Route, Link } from "react-router-dom";
+import { withRouter, Switch, Route } from "react-router-dom";
 import Biography from './Components/Biography';
 import Work from './Components/Work';
 import Contact from './Components/Contact';
@@ -7,17 +7,12 @@ import Home from './Components/Home';
 
 class App extends Component {
 
-   mapping = () =>{
-    const articles = this.state.articles_list
-    console.log('s')
-    return <div>{articles.map(x => <p>{x.id}</p>)}</div>
-  }
+  
   renderHomePage = () =>{
     return <Home />
   }
   renderWork = () =>{
-    console.log(this.mapping)
-    return <Work  mapping={this.mapping}/>
+    return <Work />
   }
   renderBiography = () =>{
     return <Biography />

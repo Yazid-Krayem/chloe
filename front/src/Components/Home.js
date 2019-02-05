@@ -1,22 +1,40 @@
 import React, { Component } from 'react';
-import { Navbar,Nav,FormControl,Button,Form } from 'react-bootstrap';
-class Header extends Component {
+import Header from './Header';
+class Home extends Component {
+  state={
+    last3:[]
+    
+  }
+  componentDidMount(){
+    const getlast3 = async()=>{
+
+         const response = await fetch('//localhost:8080/articles/last3')
+         const data = await response.json()
+           if(data){
+           const last3 = data.result
+           this.setState({last3})
+           console.log(this.state.last3)
+        } 
+      } 
+        // this.setState({articles_list:data})
+    
+    getlast3();
+  }
+
+
   render() {
+    const articles = this.state.last3;
+
     return (
         <div>
-<Navbar bg="light" variant="light">
-    
-    <Nav className="mr-auto">
-      <Nav.Link href="/">Home</Nav.Link>
-      <Nav.Link href="/work">Work</Nav.Link>
-      <Nav.Link href="/Biography">Biography</Nav.Link>
-      <Nav.Link href="/Contact">Contact</Nav.Link>
-    </Nav>
-      
-  </Navbar>      
+<Header />
+<p>Home</p>
+  <ul>
+        {articles.map(x=><li>{x.title}- {x.id}</li>)}
+        </ul>      
   </div>
     );
   }
 }
 
-export default Header;
+export default Home;

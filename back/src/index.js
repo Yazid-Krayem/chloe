@@ -61,7 +61,16 @@ const start = async () => {
       next(e);
     }
   });
-
+// last 3 ORDER BY ID
+app.get("/articles/last3", async (req, res, next) => {
+  try {
+    const { order } = req.query;
+    const articles = await controller.getLast3(order);
+    res.json({ success: true, result: articles });
+  } catch (e) {
+    next(e);
+  }
+});
   // ERROR
   app.use((err, req, res, next) => {
     console.error(err)

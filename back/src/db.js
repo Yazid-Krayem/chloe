@@ -127,6 +127,22 @@ const db= await sqlite.open('./db.sqlite');
       throw new Error(`couldn't get the article ${id}: `+e.message)
     }
   }
+const getLast3 = async (orderBy)=>{
+let statement = `select id,title,text,img_path,date,link FROM articles order by id desc limit 3`
+switch(orderBy){
+  case 'id': statement += `ORDER BY id`;break
+}
+const rows = await db.all(statement)
+    if(!rows.length){
+        throw new Error (`no rows found`)
+    }
+    return rows
+
+}
+ 
+  /* get last 3 added articles
+
+  */
 
 
 const getArticlesList = async(orderBy)=>{
@@ -159,6 +175,7 @@ createArticle,
 updateArticle,
 deleteArticle,
 getArticle,
+getLast3
 
 }
 return controller;
