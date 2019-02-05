@@ -13,19 +13,21 @@ const db= await sqlite.open('./db.sqlite');
    * @returns {number} the id of the created article (or an error if things went wrong) 
    */
 
-   const createArticle = async(props) =>{
-        if(!props || !props.title || !props.text || !props.img_path || !props.date ){
-            throw new Error (`It's an article !!!! write something`)
-        }
-        const { title , text , img_path , date} = props
-        try{
-            const result = await db.run(SQL`INSERT INTO articles (title , text , img_path , date , link)  VALUES  (${title},${text},${img_path},${date},${link})`)
-            const id = result.stmt.lastID
-            return id 
-        }catch(e){
-            throw new Error (`couldn't insert this combination: `+e.message)
-        }
-   }
+  const createArticle = async props => {
+    if (!props || !props.title || !props.text || !props.date) {
+      throw new Error(`you must provide a title a text and a date`);
+    }
+    const { title, text, img_path, date, link } = props;
+    try {
+      const result = await db.run(
+        SQL`INSERT INTO articles (title,text,img_path,date,link) VALUES (${title},${text},${img_path},${date},${link}) `
+      );
+      const id = result.stmt.lastID;
+      return id;
+    } catch (error) {
+      throw new Error(`couldn't insert this combination` + error.message);
+    }
+  };
 
    /**
    * deletes an article
@@ -51,54 +53,62 @@ const db= await sqlite.open('./db.sqlite');
    * @param {number} id the id of the article to edit
    * @param {object} props an object with at least one of `title` or`text` or`img_path` or`link`
    */
-    const updateArticle = async(id,props) =>{
-        if(!props || !props.title || !props.text || !props.link || !props.img_path){
-            throw new Error (`you must provide something`)
+    // const updateArticle = async(id,props) =>{
+    //     if(!props || !props.title || !props.text || !props.link || !props.img_path ||!props.date){
+    //         throw new Error (`you must provide something`)
+    //     }
+    //     const {title,text,date,img_path,link} =props
+    //     try{
+    //         let statement ='';
+    //         if(title && text){
+    //             statement = SQL(`UPDATE articles SET title =${title} text = ${text} WHERE id=${id}`)
+    //         }else if (title && img_path){
+    //             statement = SQL(`UPDATE articles SET title =${title} img_path = ${img_path} WHERE id=${id}`)
+    //         }else if(title && link){
+    //             statement = SQL(`UPDATE articles SET title =${title} link = ${link} WHERE id=${id}`)
+    //         }else if(title && date){
+    //             statement = SQL(`UPDATE articles SET title =${title} date = ${date} WHERE id=${id}`)
+    //         }else if (text && img_path){
+    //             statement = SQL(`UPDATE articles SET text =${text} img_path = ${img_path} WHERE id=${id}`)
+    //         }else if (text && link){
+    //             statement = SQL(`UPDATE articles SET text =${text} link = ${link} WHERE id=${id}`)
+    //         }else if (text && date){
+    //             statement = SQL(`UPDATE articles SET text =${text} date = ${date} WHERE id=${id}`)
+    //         }else if (date && img_path){
+    //             statement = SQL(`UPDATE articles SET date =${date} img_path = ${img_path} WHERE id=${id}`)
+    //         }else if(date && link){
+    //             statement = SQL(`UPDATE articles SET date =${date} link = ${link} WHERE id=${id}`)
+    //         }else if (img_path && link){
+    //             statement = SQL(`UPDATE articles SET link =${link} img_path = ${img_path} WHERE id=${id}`)
+    //         }else if (text){
+    //             statement = SQL(`UPDATE articles SET text =${text}  WHERE id=${id}`)
+    //         }else if (title){
+    //             statement = SQL(`UPDATE articles SET title =${title} WHERE id=${id}`)
+    //         }else if (img_path){
+    //             statement = SQL(`UPDATE articles SET img_path = ${img_path} WHERE id=${id}`)
+    //         }else if (link){
+    //             statement = SQL(`UPDATE article SET link=${link} WHERE id=${id}`)
+    //         }else if(date){
+    //             statement = SQL(`UPDATE article SET date=${date} WHERE id=${id}`)
+    //         }
+    //         const result = await db.run(statement)
+    //         if(result.stmt.changes === 0 ){
+    //             throw new Error (`no changes were made`)
+    //         }
+    //         return true
+    //     }catch(e){
+    //         throw new Error (`couldn't update the article ${id}: ` + e.message)
+    //     }
+    // }
+    const updateArticle = async (id, props) => {
+        const  { title, text, img_path, date, link } = props
+        const result = await db.run(SQL`UPDATE articles SET title=${title}, text=${text}, img_path=${img_path}, link=${link}, date=${date} WHERE id = ${id}`);
+        if(result.stmt.changes === 0){
+          return false
         }
-        const {title,text,date,img_path,link} =props
-        try{
-            let statement ='';
-            if(title && text){
-                statement = SQL(`UPDATE articles SET title =${title} text = ${text} WHERE id=${id}`)
-            }else if (title && img_path){
-                statement = SQL(`UPDATE articles SET title =${title} img_path = ${img_path} WHERE id=${id}`)
-            }else if(title && link){
-                statement = SQL(`UPDATE articles SET title =${title} link = ${link} WHERE id=${id}`)
-            }else if(title && date){
-                statement = SQL(`UPDATE articles SET title =${title} date = ${date} WHERE id=${id}`)
-            }else if (text && img_path){
-                statement = SQL(`UPDATE articles SET text =${text} img_path = ${img_path} WHERE id=${id}`)
-            }else if (text && link){
-                statement = SQL(`UPDATE articles SET text =${text} link = ${link} WHERE id=${id}`)
-            }else if (text && date){
-                statement = SQL(`UPDATE articles SET text =${text} date = ${date} WHERE id=${id}`)
-            }else if (date && img_path){
-                statement = SQL(`UPDATE articles SET date =${date} img_path = ${img_path} WHERE id=${id}`)
-            }else if(date && link){
-                statement = SQL(`UPDATE articles SET date =${date} link = ${link} WHERE id=${id}`)
-            }else if (img_path && link){
-                statement = SQL(`UPDATE articles SET link =${link} img_path = ${img_path} WHERE id=${id}`)
-            }else if (text){
-                statement = SQL(`UPDATE articles SET text =${text}  WHERE id=${id}`)
-            }else if (title){
-                statement = SQL(`UPDATE articles SET title =${title} WHERE id=${id}`)
-            }else if (img_path){
-                statement = SQL(`UPDATE articles SET  img_path = ${img_path} WHERE id=${id}`)
-            }else if (link){
-                statement = SQL(`UPDATE article SET link=${link} WHERE id=${id}`)
-            }else if(date){
-                statement = SQL(`UPDATE article SET date=${date} WHERE id=${id}`)
-            }
-            const result = await db.run(statement)
-            if(result.stmt.changes === 0 ){
-                throw new Error (`no changes were made`)
-            }
-            return true
-        }catch(e){
-            throw new Error (`couldn't update the article ${id}: ` + e.message)
-        }
-    }
-
+        return true
+      }
+      
     /**
    * Retrieves an article
    * @param {number} id the id of the article

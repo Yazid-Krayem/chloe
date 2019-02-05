@@ -1,9 +1,12 @@
-import './App.css';
-
-import React, {Component} from 'react';
-
-import Home from './Component/Home';
+import React, { Component } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Route, withRouter, Switch, Link } from "react-router-dom";
+import './App.css'
+// import Home from './Component/Home';
 import Article from './Component/Article';
+import { pause } from './Component/Utils/Utils';
+import ArticleList from './Component/articles/ArticlesList'
 
 class App extends Component {
   state = {
@@ -13,7 +16,8 @@ class App extends Component {
     text: '',
     img_path: '',
     date: '',
-    link: ''
+    link: '',
+    isLoading: false
   };
 
   /////
@@ -25,17 +29,19 @@ class App extends Component {
       return;
     }
     try {
-      const respone = await fetch(`//localhost:8080/articles/get/${id}`);
+      const respone = await fetch(`http://localhost:8080/articles/get/${id}`);
       const data = respone.json();
       if (data.success) {
         const article = data.result;
         const article_list = [...this.state.article_list, article];
         this.setState({article_list});
+        toast(`articles loaded`)
       } else {
         this.setState({error_message: data.message});
       }
     } catch (err) {
       this.setState({error_message: err.message});
+      toast.error(err.message)
     }
   };
   /////
@@ -49,11 +55,14 @@ class App extends Component {
         const article_list =
             this.state.article_list.filter(article => article.id !== id);
         this.setState({article_list});
+        toast(`article deleted`)
       } else {
         this.setState({error_message: data.message});
+        toast.error(data.message)
       }
     } catch (err) {
       this.setState({error_message: err.message});
+      toast.error(err.message)
     }
   };
   //////
@@ -163,9 +172,12 @@ class App extends Component {
         this.setState({ article_list });
       } else {
         this.setState({ error_message: answer.message });
+        toast.error(answer.message)
       }
     } catch (err) {
       this.setState({ error_message: err.message });
+      toast.error(err.message)
+
     }
   };
 
@@ -178,9 +190,9 @@ class App extends Component {
       }
       const {title, text, date ,link,img_path} = props;
       const response = await fetch(
-        `//localhost:8080/articles/new/?title=${title}&text=${text}&date=${date}&link=${link}&img_path=${img_path}`
-      );
-      console.log(props)
+        `//localhost:8080/articles/new/?title=${title}&text=${text}&img_path=${img_path}&date=${date}&link=${link}
+      `);
+      console.log(response)
       const answer = await response.json();
       if (answer.success) {
         // we reproduce the user that was created in the database, locally
@@ -188,29 +200,37 @@ class App extends Component {
         const article = { title, text,date, id };
         const article_list = [...this.state.article_list, article];
         this.setState({ article_list });
+        toast(`article "${title}" added`);
       } else {
         this.setState({ error_message: answer.message });
+        toast.error(answer.message)
       }
     } catch (err) {
       this.setState({ error_message: err.message });
+      toast.error(err.message)
     }
   };
 
   ////
   // All articles
   getList = async order => {
+    this.setState({isLoading:true})
     try {
       const respone =
           await fetch(`http://localhost:8080/articles/list?order=${order}`);
+          await pause();    
       const data = await respone.json();
       if (data.success) {
         const article_list = data.result;
-        this.setState({article_list});
+        this.setState({article_list,isLoading:false});
+        toast("articles loaded")
       } else {
-        this.setState({error_message: data.message});
+        this.setState({error_message: data.message,isLoading:false});
+        toast.error(data.message)
       }
     } catch (err) {
-      this.setState({error_message: err.message});
+      this.setState({error_message: err.message,isLoading:false});
+      toast.error(err.message)
     }
   };
 
@@ -227,60 +247,106 @@ class App extends Component {
 
     this.setState({title: '', text: '', link: '', date: '', img_path: ''});
   };
+  renderHomePage = () => {
+    const { articles_list } = this.state;
+    return( 
+    
+    <ArticleList 
+      articles_list={articles_list} 
+      />);
+  }
+  renderArticlePage = ({ match }) => {
+    const id = match.params.id;
+    // find the article:
+    // eslint-disable-next-line eqeqeq
+    const article = this.state.article_list.find(article => article.id == id);
+    // we use double equality because our ids are numbers, and the id provided by the router is a string
+    if (!article) {
+      return <div>{id} not found</div>;
+    }
+    return (
+      <Article
+      key={article.id}
+      id={article.id}
+      title={article.title}
+      text={article.text}
+      date={article.date}
+      link={article.link}
+      img_path={article.img_path}
+      updateArticle={this.updateArticle}
+      deleteArticle={this.deleteArticle}
+      />
+    );
+  };
+  renderProfilePage = () => {
+    return <div>profile page</div>;
+  };
+renderCreateForm = () =>{
+  return(
+    <form className="thrid" onSubmit={this.onSubmit}>
+    <input
+       type='text'
+       onChange={evt => this.setState({title:evt.target.value})}
+       placeholder='title'
+       value={this.state.title}
+       />
+       <textarea
+         onChange={evt=> this.setState({text:evt.target.value})}
+         placeholder='text'
+         value={this.state.text}
+       ></textarea>
+       <input
+       type='text'
+       onChange={evt => this.setState({date:evt.target.value})}
+       placeholder='date'
+       value={this.state.date}
+       />
+       <input
+       type='link'
+       onChange={evt => this.setState({link:evt.target.value})}
+       placeholder='link'
+       value={this.state.link}
+       />
+       <div>
+         <input type="submit" value="ok" />
+         <input type="reset" value="cancel" className="button" />
+       </div>
+
+    </form>
+  )
+}
+renderContent() {
+  if (this.state.isLoading) {
+    return <p>loading...</p>;
+  }
+  return (
+    <Switch>
+      <Route path="/" exact render={this.renderHomePage} />
+      <Route path="/articles/:id" render={this.renderContactPage} />
+      <Route path="/profile" render={this.renderProfilePage} />
+      <Route path="/create" render={this.renderCreateForm} />
+      <Route render={() => <div>not found!</div>} />
+    </Switch>
+  );
+}
 
   render() {
-    const {article_list, error_message} = this.state;
     return (
       <div className='App'>
-      {error_message ? <p> ERROR! {error_message}</p> : false}
-      <Home 
-      article={this.state.article_list}
-       />
-       {article_list.map(article=>(
-          <Article 
-          key={article.id}
-          id={article.id}
-          title={article.title}
-          text={article.text}
-          link={article.link}
-          date={article.date}
-          updateArticle={this.updateArticle}
-          deleteArticle={this.deleteArticle}
-         />
-       ))}
-       
-       <form className="thrid" onSubmit={this.onSubmit}>
-       <input
-          type='text'
-          onChange={evt => this.setState({title:evt.target.value})}
-          placeholder='title'
-          value={this.state.title}
-          />
-          <textarea
-            onChange={evt=> this.setState({text:evt.target.value})}
-            placeholder='text'
-            value={this.state.text}
-          ></textarea>
-          <input
-          type='text'
-          onChange={evt => this.setState({date:evt.target.value})}
-          placeholder='date'
-          value={this.state.date}
-          />
-          <input
-          type='link'
-          onChange={evt => this.setState({link:evt.target.value})}
-          placeholder='link'
-          value={this.state.link}
-          />
-          <div>
-            <input type="submit" value="ok" />
-            <input type="reset" value="cancel" className="button" />
-          </div>
+      
 
-       </form>
+      {/* <Home 
+      article={this.state.article_list}
+       /> */}
+       <div>
+          <Link to="/">Home</Link> |<Link to="/profile">profile</Link> |
+          <Link to="/create">create</Link>
+        </div>
+        {this.renderContent()}
+        <ToastContainer />
+
       </div>);
   }
   }
 
-  export default App;
+  export default withRouter(App);

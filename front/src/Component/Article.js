@@ -71,7 +71,7 @@ class Article extends Component {
         evt.preventDefault();
         // target the form
         const form = evt.target;
-        // extract the two inputs from the form
+
         const article_title_input = form.article_title_input;
         const article_text_input = form.article_text_input;
         const article_date_input = form.article_date_input;
