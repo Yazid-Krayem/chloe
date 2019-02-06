@@ -26,7 +26,7 @@ class Work extends Component {
             <Header />
         <p>Work</p>
         <ul>
-        {articles.map(x=><li>{x.title}</li>)}
+        {articles.map(x=><li>{x.title} -{x.date}</li>)}
         </ul>
       </div>
     );

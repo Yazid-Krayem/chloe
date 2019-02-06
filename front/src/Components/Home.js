@@ -30,7 +30,7 @@ class Home extends Component {
 <Header />
 <p>Home</p>
   <ul>
-        {articles.map(x=><li>{x.title}- {x.id}</li>)}
+        {articles.reverse().map(x=><li>{x.title}- {x.id} - {x.date}</li>)}
         </ul>      
   </div>
     );

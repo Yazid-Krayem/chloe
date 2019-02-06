@@ -2,6 +2,12 @@
 import sqlite from 'sqlite'
 import SQL from 'sql-template-strings';
 
+const nowForSQLite = () =>
+  new Date()
+    .toISOString()
+    .replace("T", " ")
+    .replace("Z", "");
+
 const initializeDatabase=async()=>{
 
 const db= await sqlite.open('./db.sqlite');
@@ -18,6 +24,7 @@ const db= await sqlite.open('./db.sqlite');
       throw new Error(`you must provide a title a text and a date`);
     }
     const { title, text, img_path, date, link } = props;
+    // const date = nowForSQLite();
     try {
       const result = await db.run(
         SQL`INSERT INTO articles (title,text,img_path,date,link) VALUES (${title},${text},${img_path},${date},${link}) `
@@ -128,9 +135,9 @@ const db= await sqlite.open('./db.sqlite');
     }
   }
 const getLast3 = async (orderBy)=>{
-let statement = `select id,title,text,img_path,date,link FROM articles order by id desc limit 3`
+let statement = `select id,title,text,img_path,date,link FROM articles order by date desc limit 3`
 switch(orderBy){
-  case 'id': statement += `ORDER BY id`;break
+  case 'date': statement += `ORDER BY date`;break
 }
 const rows = await db.all(statement)
     if(!rows.length){
@@ -145,27 +152,53 @@ const rows = await db.all(statement)
   */
 
 
-const getArticlesList = async(orderBy)=>{
+// const getArticlesList = async(orderBy)=>{
 
-try{
-    let statement =`SELECT id , title , text , img_path , link FROM articles `
-    switch(orderBy){
-        case 'title': statement +=  `ORDER BY title`;break
-        case 'text' : statement += `ORDER BY text`;break
-        case 'img_path' : statement += ` ORDER BY img_path`;break
-        case 'link' : statement += `ORDER BY link`;break
-        default: break
-    }
-    const rows = await db.all(statement)
-    if(!rows.length){
-        throw new Error (`no rows found`)
-    }
-    return rows
-}catch(e){
-    throw new Error (`couldn't retrieve articles: `+e.message)
-}
+// try{
+//     let statement =`SELECT id , title , text , img_path , link FROM articles `
+//     switch(orderBy){
+//         case 'title': statement +=  `ORDER BY title`;break
+//         case 'text' : statement += `ORDER BY text`;break
+//         case 'img_path' : statement += ` ORDER BY img_path`;break
+//         case 'link' : statement += `ORDER BY link`;break
+//         default: break
+//     }
+//     const rows = await db.all(statement)
+//     if(!rows.length){
+//         throw new Error (`no rows found`)
+//     }
+//     return rows
+// }catch(e){
+//     throw new Error (`couldn't retrieve articles: `+e.message)
+// }
 
-}
+// }
+const getArticlesList = async props => {
+  const { orderBy,  desc, limit, start } = props;
+  const orderProperty = /title|text|date|link|img_path|id/.test(orderBy)
+    ? orderBy
+    : "id";
+  const startingId = start 
+    ? start // if start is provided, use that
+    : orderProperty === "id" // otherwise, if we're order by `id`:
+    ? 0 // default `startingId` is 0 
+    : orderProperty === "date" // otherwise, if we're ordering by `date`
+    ? "1970-01-01 00:00:00.000" // default property is an old date
+    : "a"; // otherwise, default property is "a" (for `name` and `email`)
+  try {
+    const statement = SQL`SELECT  id, title, text, date, img_path , link FROM articles WHERE ${orderProperty} > ${startingId}`;
+    // if (author_id) {
+    //   statement.append(SQL` AND author_id = ${author_id}`);
+    // }
+    statement.append( desc? SQL` ORDER BY ${orderProperty} DESC` : SQL` ORDER BY ${orderProperty} ASC`);
+    statement.append(SQL` LIMIT ${limit || 100}`);
+    const rows = await db.all(statement);
+    return rows;
+  } catch (e) {
+    throw new Error(`couldn't retrieve contacts: ` + e.message);
+  }
+};
+
 
 
 const controller ={
