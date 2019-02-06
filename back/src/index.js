@@ -55,23 +55,14 @@ const start = async () => {
   app.get("/articles/list", async (req, res, next) => {
     try {
       const { order, desc, limit, start } = req.query;
-      const articles = await controller.getArticlesList({order, desc, limit, start});
+      console.log(order)
+      const articles = await controller.getArticlesList({order});
       res.json({ success: true, result: articles });
     } catch (e) {
       next(e);
     }
   });
 
-// last 3 ORDER BY ID
-app.get("/articles/last3", async (req, res, next) => {
-  try {
-    const { order } = req.query;
-    const articles = await controller.getLast3(order);
-    res.json({ success: true, result: articles });
-  } catch (e) {
-    next(e);
-  }
-});
   // ERROR
   app.use((err, req, res, next) => {
     console.error(err)

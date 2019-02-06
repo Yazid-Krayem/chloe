@@ -6,13 +6,27 @@ import Contact from './Components/Contact';
 import Home from './Components/Home';
 
 class App extends Component {
+  state={
+    articles_list:[]
+  }
+  componentDidMount(){
+    const getList = async()=>{
+        const response = await fetch(`//localhost:8080/articles/list?order=date`)
+        const data = await response.json()
+        if(data){
+          const articles_list = data.result
+          this.setState({articles_list})
+        }  
+    }
+    getList();
+  }
 
   
   renderHomePage = () =>{
-    return <Home />
+    return <Home list={this.state.articles_list}/>
   }
   renderWork = () =>{
-    return <Work />
+    return <Work  list={this.state.articles_list}/>
   }
   renderBiography = () =>{
     return <Biography />

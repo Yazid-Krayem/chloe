@@ -2,32 +2,21 @@ import React, { Component } from 'react';
 import Header from './Header';
 
 class Work extends Component {
-  state={
-    articles_list:[]
-  }
-  componentDidMount(){
-    const getList = async()=>{
-        const response = await fetch('//localhost:8080/articles/list')
-        const data = await response.json()
-        if(data){
-          const articles_list = data.result
-          this.setState({articles_list})
-        }  
-        // this.setState({articles_list:data})
-    }
-    getList();
-  }
+ 
+test = () =>{
+ console.log(this.props.list)
 
+}
   render() {
-    const articles = this.state.articles_list
     return (
       
         <div>
             <Header />
         <p>Work</p>
         <ul>
-        {articles.map(x=><li>{x.title} -{x.date}</li>)}
+        {this.props.list.map(x=><li>{x.title} -{x.date}</li>)}
         </ul>
+        <button onClick={this.test}>z</button>
       </div>
     );
   }
