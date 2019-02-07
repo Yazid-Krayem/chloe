@@ -43,7 +43,7 @@ class Home extends Component {
   <h2 className="h2">Latest posts</h2>
   <ul>
    {articles.filter((i ,index) => (index < 3)).map((i,index)=> (<li>{i.img_path} {i.title} - {i.date}<br />{i.text}<br />
-   <button onClick={() =>{window.location.href=`http://localhost:8080/articles/get/${i.id}`}}>continue</button></li>))
+   <button onClick={() =>{window.location.href=`http://localhost:3000/article/${i.id}`}}>continue</button></li>))
   }
         </ul>
         </div>
