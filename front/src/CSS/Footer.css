@@ -2,3 +2,15 @@
     width: 20%;
     float: right;
 }
+@media screen and (max-width: 1080px) {
+ 
+.social{
+    /* float: left; */
+    width: 100%;
+    align-content: center
+}
+.chloe-down{
+    display: none;
+    
+}
+}

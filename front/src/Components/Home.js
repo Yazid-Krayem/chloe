@@ -3,7 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import profile from '../images/profile.jpg';
 import { SocialIcon } from 'react-social-icons';
-import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
+import { TwitterTimelineEmbed } from 'react-twitter-embed';
 import '../CSS/Home.css'
 class Home extends Component {
  
@@ -31,11 +31,11 @@ class Home extends Component {
 <Header />
 <h1 style={{textAlign:"center"}}>Chloe Domat</h1>
 <div className="profile">
-<img src={profile} width='250px' height='350px' alt='chloe'/>
+<img  src={profile} width='250px' height='350px' alt='chloe'/>
 </div>
 <div className="right">
 <div className="para">
-<p><span style={{fontSize:'30px'}}>""</span>Chloe Domat is an award-winning multimedia journalist currently based in Beirut. 
+<p className="info-p"><span style={{fontSize:'30px'}}>""</span>Chloe Domat is an award-winning multimedia journalist currently based in Beirut. 
   She reports for various international media outlets including France 24, Ouest France, 
   Global Finance and Middle East Eye. Domat has also worked with LCI (TF1 Group Paris). 
   She has a master’s degree in political science from the American University of Beirut and studied journalism and international relations at Sciences Po Paris. 

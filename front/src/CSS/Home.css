@@ -1,3 +1,4 @@
+
 /* .para{
 
     width:70%;
@@ -5,6 +6,7 @@
     padding: 30px;
     
 } */
+
 .profile{
     display: inline;
     padding: 10px;
@@ -41,9 +43,73 @@ li{
     width: 25%;
     float: left;
     display: inline;
+    position: sticky;
     
 }
 .twitter{
   display: inline-block;
     width: 75%;
+    margin: 0px;
+}
+.info-p{
+    text-align:center;
+    
+    display:inline-block
+}
+@media screen and (max-width: 1080px) {
+    .info-p{
+        display: none;
+    }
+  img{
+      margin: 0 auto;
+  }
+  .right{
+    width: 60%;
+    float: right;
+}
+.footer{
+    width: 70%;
+}
+}
+/* @media screen and (max-width: 674px){
+    .info{
+        display: none;
+
+    }
+    .right{
+        width: 100%;
+    }
+    img{
+        width:350px;
+         margin-left: 100px
+    } */
+
+@media only screen and (max-width: 674px) and (min-width: 400px)  {
+    .info{
+        display: none;
+
+    }
+    .right{
+        width: 100%;
+        display: inline;
+    }
+    img{
+        width:350px;
+         margin-left: 20px
+    }
+}
+@media only screen and (max-width: 400px) and (min-width: 50px)  {
+
+    .info{
+        display: none;
+
+    }
+    .right{
+        width: 100%;
+        display: inline;
+    }
+    img{
+        width:250px;
+    }
+
 }

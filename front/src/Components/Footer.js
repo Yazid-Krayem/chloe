@@ -18,7 +18,7 @@ class Footer extends Component {
         <SocialIcon url="http://instagram.com/" />
         <SocialIcon url="http://gmail.com/" />
         </div>
-        <img src={chloe} width='70px' alt="chloe" />
+        <img  className="chloe-down" src={chloe} width='70px' alt="chloe" />
       </div>
     );
   }
