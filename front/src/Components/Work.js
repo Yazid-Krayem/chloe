@@ -19,7 +19,7 @@ test = () =>{
         <h4 style={{textAlign:"center"}}>{x.date}</h4> <br /> 
         {x.img_path}<br /><article> {x.text}</article><br />{x.link}<hr /></div>)}
         </div>
-        <button onClick={this.test}>z</button>
+<a href='/'>Home</a>
       <Footer />
       </div>
 

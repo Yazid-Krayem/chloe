@@ -37,3 +37,13 @@ li{
        
    }
 
+.info{
+    width: 25%;
+    float: left;
+    display: inline;
+    
+}
+.twitter{
+  display: inline-block;
+    width: 75%;
+}
