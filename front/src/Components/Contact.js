@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header';
+import Footer from './Footer';
 
 class Contact extends Component {
   render() {
@@ -7,6 +8,7 @@ class Contact extends Component {
         <div>
             <Header />
         <p>Contact</p>
+        <Footer />
       </div>
     );
   }

@@ -1,0 +1,39 @@
+/* .para{
+
+    width:70%;
+    display: inline-block;
+    padding: 30px;
+    
+} */
+.profile{
+    display: inline;
+    padding: 10px;
+    
+}
+/* .last3{
+    float: right;
+    width: 50%;
+    padding: 10;
+     position: relative; 
+}
+ 
+*/
+.footer{
+    padding: 40px;
+}
+.h2{
+    text-align: center;
+}
+
+.right{
+    width: 75%;
+    float: right;
+}
+li{
+    width: 30%;
+    display: inline-block;   
+
+    border: solid 1px black;
+       
+   }
+
