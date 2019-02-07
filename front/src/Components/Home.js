@@ -29,6 +29,7 @@ class Home extends Component {
     return (
         <div>
 <Header />
+<div className="home">
 <h1 style={{textAlign:"center"}}>Chloe Domat</h1>
 <div className="profile">
 <img  src={profile} width='250px' height='350px' alt='chloe'/>
@@ -69,6 +70,7 @@ class Home extends Component {
   screenName="saurabhnemade"
   options={{height: 400}}
 />
+</div>
 </div>
 </div>
   <div className="footer">

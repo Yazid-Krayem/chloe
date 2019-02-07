@@ -1,16 +1,29 @@
 .social{
-    width: 20%;
+position: absolute;
+}
+.chloe-down{
     float: right;
 }
 @media screen and (max-width: 1080px) {
  
 .social{
     /* float: left; */
-    width: 100%;
-    align-content: center
+    /* width: 100%; */
 }
 .chloe-down{
-    display: none;
+    /* display: none; */
     
+}
+.footer{
+    width: 100%;
+}
+}
+@media only screen and (max-width: 400px) and (min-width: 50px)  {
+
+.chloe-down{
+    display:none;
+}
+.footer{
+    width: 100%;
 }
 }

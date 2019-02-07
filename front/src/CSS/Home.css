@@ -1,35 +1,33 @@
 
-/* .para{
-
-    width:70%;
-    display: inline-block;
-    padding: 30px;
-    
-} */
-
+body{
+    background-color: rgb(139, 201, 201);
+}
+.home{
+    margin: 0 auto;
+    padding: 0;
+    width: 1100px;
+    background-color: darkgrey;
+}
 .profile{
     display: inline;
     padding: 10px;
     
 }
-/* .last3{
-    float: right;
-    width: 50%;
-    padding: 10;
-     position: relative; 
-}
- 
-*/
+
 .footer{
-    padding: 40px;
+    width: 100%;
 }
 .h2{
     text-align: center;
 }
 
 .right{
-    width: 75%;
-    float: right;
+    display: inline-grid;
+    width: 800px;
+    /* float: right; */
+}
+.para{
+    justify-content: start;
 }
 li{
     width: 30%;
@@ -57,10 +55,10 @@ li{
     display:inline-block
 }
 @media screen and (max-width: 1080px) {
-    .info-p{
+    /* .info-p{
         display: none;
-    }
-  img{
+    } */
+  /* img{
       margin: 0 auto;
   }
   .right{
@@ -69,7 +67,7 @@ li{
 }
 .footer{
     width: 70%;
-}
+} */
 }
 /* @media screen and (max-width: 674px){
     .info{
@@ -85,31 +83,42 @@ li{
     } */
 
 @media only screen and (max-width: 674px) and (min-width: 400px)  {
-    .info{
+    /* .info{
         display: none;
 
-    }
-    .right{
+    } */
+    /* .right{
         width: 100%;
         display: inline;
-    }
-    img{
+    } */
+    /* img{
         width:350px;
          margin-left: 20px
-    }
+    } */
 }
 @media only screen and (max-width: 400px) and (min-width: 50px)  {
 
-    .info{
+    /* .info{
         display: none;
 
     }
     .right{
         width: 100%;
         display: inline;
+    } */
+    .info{
+        display: none;
+
+    }
+    .twitter{
+        width: 100%;
     }
     img{
         width:250px;
     }
+    .footer{
+        width: 100%;
+    }
+    
 
 }
