@@ -12,7 +12,7 @@ test = () =>{
       
         <div>
             <Header />
-        <p>Work</p>
+        <p>Work </p>
         <ul>
         {this.props.list.map(x=><li>{x.title} -{x.date}</li>)}
         </ul>

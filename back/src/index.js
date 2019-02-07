@@ -55,7 +55,6 @@ const start = async () => {
   app.get("/articles/list", async (req, res, next) => {
     try {
       const { order, desc, limit, start } = req.query;
-      console.log(order)
       const articles = await controller.getArticlesList({order});
       res.json({ success: true, result: articles });
     } catch (e) {

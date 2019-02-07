@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/rakon1/chole#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "bootstrap": "^4.2.1",
     "concurrently": "^4.1.0",
     "postinstall": "^0.4.2",
