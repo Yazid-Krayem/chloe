@@ -6,14 +6,6 @@ position: absolute;
 }
 @media screen and (max-width: 1080px) {
  
-.social{
-    /* float: left; */
-    /* width: 100%; */
-}
-.chloe-down{
-    /* display: none; */
-    
-}
 .footer{
     width: 100%;
 }
