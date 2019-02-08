@@ -32,7 +32,7 @@ class Home extends Component {
 <div className="home">
 <h1 className='name'>Chloe Domat</h1>
 <div className="profile">
-<img   id="profile-img"src={profile} alt='chloe'/>
+<img   id="profile-img" src={profile} alt='chloe'/>
 </div>
 <div className="right">
 <div className="para">
