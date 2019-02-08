@@ -385,3 +385,43 @@ li{
         display: none;
     }
 }
+@media screen and (max-width: 1024px) , screen and (max-height: 1366px) {
+    body{
+        width: 1024px;
+    }
+    .home{
+        width: auto;
+        height: auto;
+        
+    }
+    .right{
+        width: auto;
+        /* float: right; */
+        
+    }
+    .info-p{
+        word-wrap: break-word;
+        
+    }
+    #profile-img{
+        width:100%;
+        height:900px;
+         
+    }inline
+    
+    .last3{
+        width: auto;
+    }
+    .info{
+        display: none;
+    }
+    .twitter{
+        width: 100%;
+    }
+    .name{
+        text-align: center;
+    }
+    .chloe-down{
+        display: none;
+    }
+}
