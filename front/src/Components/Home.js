@@ -30,9 +30,9 @@ class Home extends Component {
         <div>
 <Header />
 <div className="home">
-<h1 style={{textAlign:"center"}}>Chloe Domat</h1>
+<h1 className='name'>Chloe Domat</h1>
 <div className="profile">
-<img  src={profile} width='250px' height='350px' alt='chloe'/>
+<img   id="profile-img"src={profile} alt='chloe'/>
 </div>
 <div className="right">
 <div className="para">
