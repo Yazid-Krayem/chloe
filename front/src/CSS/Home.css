@@ -305,3 +305,43 @@ li{
         text-align: center;
     }
 }
+@media screen and (max-width: 414px) , screen and (max-height: 736px) {
+    body{
+        width: 414px;
+    }
+    .home{
+        width: auto;
+        height: auto;
+        
+    }
+    .right{
+        width: auto;
+        /* float: right; */
+        
+    }
+    .info-p{
+        word-wrap: break-word;
+        
+    }
+    #profile-img{
+        width:100%;
+        /* height:100px; */
+         
+    }inline
+    
+    .last3{
+        width: auto;
+    }
+    .info{
+        display: none;
+    }
+    .twitter{
+        width: 100%;
+    }
+    .name{
+        text-align: center;
+    }
+    .chloe-down{
+        display: none;
+    }
+}
