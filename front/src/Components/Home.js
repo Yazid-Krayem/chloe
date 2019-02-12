@@ -56,7 +56,7 @@ class Home extends Component {
   <br />
   <div className="tw-in">
   <div className="info">
-  <p>Chloe Domat</p>
+  <p >Chloe Domat</p>
   <p>Print & video journalist 
     Middle East and North Africa English and French @France24 @OuestFrance 
     @GFMag @LeSoir @OrientXXI @MiddleEastEye</p>

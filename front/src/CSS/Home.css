@@ -2,7 +2,9 @@ body{
     background-image:url(../images/body.jpg)
     
 }
-
+.name{
+    text-align: center;
+}
 .home{
     margin: 0 auto;
     padding: 0;
