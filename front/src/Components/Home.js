@@ -32,7 +32,8 @@ class Home extends Component {
 <div className="home">
 <h1 className='name'>Chloe Domat</h1>
 <div className="profile">
-<img   id="profile-img" src={profile} alt='chloe'/>
+<img   id="profile-img" src={profile}   width='300px'
+    height='300px' alt='chloe'/>
 </div>
 <div className="right">
 <div className="para">
@@ -59,6 +60,7 @@ class Home extends Component {
   <p>Print & video journalist 
     Middle East and North Africa English and French @France24 @OuestFrance 
     @GFMag @LeSoir @OrientXXI @MiddleEastEye</p>
+    <br />
         <SocialIcon url="http://facebook.com/" />
         <SocialIcon url="http://twitter.com/" />
         <SocialIcon url="http://instagram.com/" />

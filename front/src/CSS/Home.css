@@ -1,4 +1,3 @@
-
 body{
     background-image:url(../images/body.jpg)
     
@@ -8,13 +7,14 @@ body{
     margin: 0 auto;
     padding: 0;
     width: 1100px;
+    height: auto;
     background-color: floralwhite;
 }
-/* .profile{
+.profile{
     display: inline;
     padding: 10px;
     
-} */
+}
 
 .footer{
     width: 100%;
@@ -24,404 +24,38 @@ body{
 }
 
 .right{
-    display: inline-grid;
-    width: 800px;
+    display: inline-table;
+     float: right;
+    width: 770px;
     /* float: right; */
 }
 .para{
     justify-content: start;
 }
 li{
-    width: 30%;
-    display: inline-block;   
+        width: 30%;
+        display: inline-block;   
 
-    border: solid 1px black;
+        border: solid 1px black;
        
    }
 
-.info{
-    /* width: 25%;
-    float: left; */
-    display: inline;
-    position: sticky;
+ .info{
+     width: 25%;
+    display: inline-block;
+    
     
 }
+ 
 .twitter{
+  width: 75%;
   display: inline-block;
-    width: 75%;
-    margin: 0px;
-}
-.info-p{
-    text-align:center;
-    
-    display:inline-block
-}
-@media screen and (max-width: 1080px) {
-    /* .info-p{
-        display: none;
-    } */
-  /* img{
-      margin: 0 auto;
-  }
-  .right{
-    width: 60%;
-    float: right;
-}
-.footer{
-    width: 70%;
-} */
-}
-/* @media screen and (max-width: 674px){
-    .info{
-        display: none;
+   float: right;
+} 
 
-    }
-    .right{
-        width: 100%;
-    }
-    img{
-        width:350px;
-         margin-left: 100px
-    } */
+.tw-in{
+    width: 100%;
+    display: inline-block;   
 
-@media only screen and (max-width: 674px) and (min-width: 400px)  {
-    /* .info{
-        display: none;
-
-    } */
-    /* .right{
-        width: 100%;
-        display: inline;
-    } */
-    /* img{
-        width:350px;
-         margin-left: 20px
-    } */
-}
-@media only screen and (max-width: 400px) and (min-width: 50px)  {
-
-    /* .info{
-        display: none;
-
-    }
-    .right{
-        width: 100%;
-        display: inline;
-    } */
-    .info{
-        display: none;
-
-    }
-    .twitter{
-        width: 100%;
-    }
-    img{
-        width:250px;
-    }
-    .footer{
-        width: 100%;
-    }
-}
-@media screen and (max-width: 411 px) , screen and (max-height: 731px) {
-    .html{
-        width: 100%;
-        height: 50px;
-        padding: 0;
-        margin: 0
-
-    }
-    .right{
-        width: 400px;
-        /* float: right; */
-        
-    }
-    .info-p{
-        word-wrap: break-word;
-        display: inline;
-    }
-    #profile-img{
-        width:400px;
-        /* height:400px; */
-    }
-    .home{
-        width: 100%
-    }
-    .last3{
-        width: 100%;
-    }
-    .info{
-        display: none;
-    }
-    .twitter{
-        width: 100%;
-    }
-    .name{
-        text-align: center;
-    }
-}
-@media screen and (max-width: 360 px) , screen and (max-height: 640px) {
-    body{
-        width: 100%;
-    }
-    .home{
-        width: 150%;
-        height: auto;
-    }
-    .right{
-        /* width: 360px; */
-        /* float: right; */
-        
-    }
-    .info-p{
-        word-wrap: break-word;
-        display: inline;
-    }
-    #profile-img{
-        width:100%;
-        /* height:100px; */
-         
-    }
-    
-    .last3{
-        width: 330px;
-    }
-    .info{
-        display: none;
-    }
-    .twitter{
-        width: 100%;
-    }
-    .name{
-        text-align: center;
-    }
-}
-@media screen and (max-width: 411px) , screen and (max-height: 823px) {
-    body{
-        width: 100%;
-    }
-    .home{
-        width: 411px;
-        height: auto;
-    }
-    .right{
-        width: 360px;
-        /* float: right; */
-        
-    }
-    .info-p{
-        word-wrap: break-word;
-        display: inline;
-    }
-    #profile-img{
-        width:100%;
-        /* height:100px; */
-         
-    }
-    
-    .last3{
-        width: 350px;
-    }
-    .info{
-        display: none;
-    }
-    .twitter{
-        width: 100%;
-    }
-    .name{
-        text-align: center;
-    }
-}
-@media screen and (max-width: 320px) , screen and (max-height: 568px) {
-    body{
-        width: 350px;
-    }
-    .home{
-        width: auto;
-        height: auto;
-        
-    }
-    .right{
-        width: auto;
-        /* float: right; */
-        
-    }
-    .info-p{
-        word-wrap: break-word;
-        
-    }
-    #profile-img{
-        width:100%;
-        /* height:100px; */
-         
-    }inline
-    
-    .last3{
-        width: auto;
-    }
-    .info{
-        display: none;
-    }
-    .twitter{
-        width: 100%;
-    }
-    .name{
-        text-align: center;
-    }
-}
-@media screen and (max-width: 375px) , screen and (max-height: 667px) {
-    body{
-        width: 375px;
-    }
-    .home{
-        width: auto;
-        height: auto;
-        
-    }
-    .right{
-        width: auto;
-        /* float: right; */
-        
-    }
-    .info-p{
-        word-wrap: break-word;
-        
-    }
-    #profile-img{
-        width:100%;
-        /* height:100px; */
-         
-    }inline
-    
-    .last3{
-        width: auto;
-    }
-    .info{
-        display: none;
-    }
-    .twitter{
-        width: 100%;
-    }
-    .name{
-        text-align: center;
-    }
-}
-@media screen and (max-width: 414px) , screen and (max-height: 736px) {
-    body{
-        width: 414px;
-    }
-    .home{
-        width: auto;
-        height: auto;
-        
-    }
-    .right{
-        width: auto;
-        /* float: right; */
-        
-    }
-    .info-p{
-        word-wrap: break-word;
-        
-    }
-    #profile-img{
-        width:100%;
-        /* height:100px; */
-         
-    }inline
-    
-    .last3{
-        width: auto;
-    }
-    .info{
-        display: none;
-    }
-    .twitter{
-        width: 100%;
-    }
-    .name{
-        text-align: center;
-    }
-    .chloe-down{
-        display: none;
-    }
-}
-@media screen and (max-width: 768px) , screen and (max-height: 1024px) {
-    body{
-        width: 768px;
-    }
-    .home{
-        width: auto;
-        height: auto;
-        
-    }
-    .right{
-        width: auto;
-        /* float: right; */
-        
-    }
-    .info-p{
-        word-wrap: break-word;
-        
-    }
-    #profile-img{
-        width:100%;
-        /* height:100px; */
-         
-    }inline
-    
-    .last3{
-        width: auto;
-    }
-    .info{
-        display: none;
-    }
-    .twitter{
-        width: 100%;
-    }
-    .name{
-        text-align: center;
-    }
-    .chloe-down{
-        display: none;
-    }
-}
-@media screen and (max-width: 1024px) , screen and (max-height: 1366px) {
-    body{
-        width: 1024px;
-    }
-    .home{
-        width: auto;
-        height: auto;
-        
-    }
-    .right{
-        width: auto;
-        /* float: right; */
-        
-    }
-    .info-p{
-        word-wrap: break-word;
-        
-    }
-    #profile-img{
-        width:100%;
-        height:900px;
-         
-    }inline
-    
-    .last3{
-        width: auto;
-    }
-    .info{
-        display: none;
-    }
-    .twitter{
-        width: 100%;
-    }
-    .name{
-        text-align: center;
-    }
-    .chloe-down{
-        display: none;
-    }
+    border: solid 1px black;
 }
