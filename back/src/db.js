@@ -31,7 +31,7 @@ const initializeDatabase=async()=>{
   
   /**
    * creates an article
-   * @param {object} props an object with keys `title` , `text` , `img_path` , `date` , `link`
+   * @param {object} props an object with keys `title` , `text` , `img_path` , `date` , `link` ,`type`
    * @returns {number} the id of the created article (or an error if things went wrong) 
    */
 
@@ -40,11 +40,11 @@ const initializeDatabase=async()=>{
       throw new Error(`you must provide a title a text and a date`);
     }
 
-    const { title, text, img_path, link } = props;
+    const { title, text, img_path, link ,type } = props;
     const date=nowForSQLite();
     try {
       const result = await db.run(
-        SQL`INSERT INTO articles (title,text,img_path,date,link) VALUES (${title},${text},${img_path},${date},${link}) `
+        SQL`INSERT INTO articles (title,text,img_path,date,link) VALUES (${title},${text},${img_path},${date},${link}.${type}) `
       );
       const id = result.stmt.lastID;
       return id;
@@ -87,16 +87,17 @@ const updateArticle = async (id, props) => {
       props.text ||
       props.img_path ||
       props.date ||
-      props.link
+      props.link||
+      props.type
     )
     if (!isValid) {
       throw new Error(`you need to give me something`);
     }
     try{
-    const { title, text, img_path, date, link } = props;
+    const { title, text, img_path, date, link,type } = props;
     const statement = SQL`UPDATE articles SET `.append(
       joinSQLStatementKeys(
-        ["title", "text", "img_path", "date", "link"],
+        ["title", "text", "img_path", "date", "link","type"],
         props,
         ", "
       )
@@ -139,7 +140,7 @@ const getArticlesList = async props => {
   const { order,  desc, limit, start } = props;
  
     try{
-    let statement = `SELECT  id, title, text, date, img_path , link FROM articles`
+    let statement = `SELECT  id, title, text, date, img_path , link,type FROM articles`
       switch(order){
         case 'date': statement+= ` ORDER BY date DESC`; break;
         default: break;
@@ -153,6 +154,72 @@ const getArticlesList = async props => {
   }
 };
 
+//Contact me section 
+
+/**
+   * creates an message
+   * @param {object} props an object with keys `name` , `email` , `phone number` , `subject` , `message`
+   * @returns {number} the id of the created article (or an error if things went wrong) 
+   */
+
+  const addMessage = async props => {
+    if (!props ) {
+      throw new Error(`you must provide `);
+    }
+
+    const { name,email,num,subject,message } = props;
+    const date=nowForSQLite();
+    try {
+      const result = await db.run(
+        SQL`INSERT INTO contactMe (name,email,num,subject,message) VALUES (${name},${email},${num},${subject},${message}) `
+      );
+      const id = result.stmt.lastID;
+      return id;
+    } catch (error) {
+      throw new Error(`couldn't insert this combination` + error.message);
+    }
+  };
+
+  // get all messages (CMS)
+  const getAllMessages = async props => {
+    const { order,  desc, limit, start } = props;
+   
+      try{
+      let statement = `SELECT  * FROM contactMe`
+        switch(order){
+          case 'date': statement+= ` ORDER BY date DESC`; break;
+          default: break;
+        }
+  
+      const rows = await db.all(statement);
+      return rows;
+      
+    } catch (e) {
+      throw new Error(`couldn't retrieve contacts: ` + e.message);
+    }
+  };
+
+    //filter articles upon the type
+
+  const articlesFilter = async type =>{
+    try{
+      let statement = `SELECT *
+      FROM articles
+      where type='${type}'
+	  ORDER by type`
+	  
+      
+       console.log(type)
+       const rows = await db.all(statement)
+       if(!rows.length){
+         throw new Error(`no rows found`)
+       }
+   return rows
+}catch(e){
+  throw new Error(`couldn't retrieve articles: `+e.message)
+}
+}
+
 
 
 const controller ={
@@ -162,6 +229,9 @@ createArticle,
 updateArticle,
 deleteArticle,
 getArticle,
+addMessage,
+getAllMessages,
+articlesFilter
 }
 return controller;
 

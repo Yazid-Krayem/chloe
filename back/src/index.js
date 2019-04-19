@@ -9,8 +9,8 @@ const start = async () => {
   // CREATE
   app.get("/articles/new", async (req, res, next) => {
     try {
-      const { title , text,date ,img_path ,link } = req.query;
-      const result = await controller.createArticle({ title , text,date ,img_path ,link });
+      const { title , text,date ,img_path ,link,type } = req.query;
+      const result = await controller.createArticle({ title , text,date ,img_path ,link,type });
       res.json({ success: true, result });
     } catch (e) {
       next(e);
@@ -43,8 +43,8 @@ const start = async () => {
   app.get("/articles/update/:id", async (req, res, next) => {
     try {
       const { id } = req.params;
-      const { title , text ,date,img_path ,link } = req.query;
-      const result = await controller.updateArticle(id, { title , text ,date,img_path ,link });
+      const { title , text ,date,img_path ,link ,type} = req.query;
+      const result = await controller.updateArticle(id, { title , text ,date,img_path ,link,type });
       res.json({ success: true, result });
     } catch (e) {
       next(e);
@@ -68,6 +68,28 @@ const start = async () => {
     const message = err.message
     res.status(500).json({ success:false, message })
   })
+
+  //add message 
+  app.get("/message/new", async (req, res, next) => {
+    try {
+      const { name,email,num,subject,message } = req.query;
+      const result = await controller.addMessage({ name,email,num,subject,message });
+      res.json({ success: true, result });
+    } catch (e) {
+      next(e);
+    }
+  });
+
+  //articles filtering 
+  app.get("/articles/", async (req, res, next) => {
+    try {
+      const { type } = req.query;
+      const answers = await controller.articlesFilter(type);
+      res.json({ success: true, result: answers });
+    } catch (e) {
+      next(e);
+    }
+  });
   
   app.listen(8080, () => console.log("server listening on port 8080"));
 };

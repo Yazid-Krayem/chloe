@@ -51,6 +51,7 @@ class App extends Component {
         date={article.date}
         img_path={article.img_path}
         link={article.link}
+        type={article.type}
         updateContact={this.updateContact}
         deleteContact={this.deleteContact}
       />
