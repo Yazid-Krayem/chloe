@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import Header from './Header';
-import Footer from './Footer';
+import Header from '../Header';
+import Footer from '../Footer';
 
-class Work extends Component {
- 
-test = () =>{
- console.log(this.props.list)
+class Articles extends Component {
 
-}
+  // componentWillReceiveProps(){
+  //   this.props.workFiltering('article')
+  // }
   render() {
     return (
       
         <div>
             <Header />
-        <p>Work </p>
+        <p>Articles </p>
         <div>
         {this.props.list.map(x=><div><h2 style={{textAlign:"center"}}>{x.title}</h2> <br />
         <h4 style={{textAlign:"center"}}>{x.date}</h4> <br /> 
@@ -27,4 +26,4 @@ test = () =>{
   }
 }
 
-export default Work;
+export default Articles;

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "mdbreact": "^4.13.0",
     "picnic": "^6.5.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
@@ -11,7 +12,8 @@
     "react-social-icons": "^4.1.0",
     "react-spring": "^7.2.10",
     "react-toastify": "^4.5.2",
-    "react-twitter-embed": "^2.0.4"
+    "react-twitter-embed": "^2.0.4",
+    "reactstrap": "^8.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
