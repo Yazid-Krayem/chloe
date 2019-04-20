@@ -12,7 +12,7 @@ render() {
     <Navbar bg="light" expand="lg">
   
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
-  <Navbar.Collapse id="basic-navbar-nav">
+  <Navbar.Collapse >
     <Nav className="mr-auto">
     <Nav.Link><Link to="/">Home</Link></Nav.Link>
     <NavDropdown title="WORK" id="basic-nav-dropdown">
